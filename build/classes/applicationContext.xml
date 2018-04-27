@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">  
+<!-- 配置事务管理模板 -->
+<bean id = "transactionTemplat" class="org.springframework.transaction.support.TransactionTemplate">
+    <property name="transactionManager" ref="transactionManager"/>
+    <property name="propagationBehaviorName">
+    	<value>PROPAGATION_REQUIRED</value>
+    </property>
+</bean>
+<bean id="dataSource"   
+	  class="org.springframework.jdbc.datasource.DriverManagerDataSource">   
+    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    <property name="url" value="jdbc:mysql://127.0.0.1/springusers" />
+    <property name="username" value="root" />   
+    <property name="password" value="" />
+</bean>
+<!-- 配置事务管理器-->
+<bean id="transactionManager"
+	  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource">
+    	<ref bean="dataSource" />
+    </property>
+</bean>
+
+<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <!-- 注入连接池对象 -->
+        <property name="dataSource" ref="dataSource"></property>
+        
+        <!-- 加载hibernate配置文件 -->
+         <property name="configLocation" value="classpath:hibernate.cfg.xml"></property> 
+         
+        <!-- hibernate常用配置 
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+        -->
+        
+        <!-- hibernate映射配置 
+        <property name="mappingLocations">
+            <list>
+                <value>classpath:cn/itcast/entity/*.hbm.xml</value>
+            </list>
+        </property>
+        
+        <property name="mappingDirectoryLocations">
+            <list>
+                <value>classpath:cn/itcast/entity/</value>
+            </list>
+        </property>
+        -->
+    </bean>
+</beans>

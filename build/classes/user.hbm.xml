@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+
+    <class name="entity.User" table="user">
+    	
+        <id name="id" column="id" type="int">
+        	<generator class="native"></generator>	
+        </id>
+        <property name="username" type="string" length="50">
+        	<column name="username"></column>
+        </property>
+        <property name="pwd" type="string" length="50">
+        	<column name="pwd"></column>
+        </property>
+        <property name="email" type="string" length="100">
+        	<column name="email"></column>
+        </property>
+        <property name="question" type="string" length="50">
+        	<column name="question"></column>
+        </property>
+        <property name="answer" type="string" length="50">
+        	<column name="answer"></column>
+        </property>
+        <property name="image" type="string" length="50">
+        	<column name="image"></column>
+        </property>
+        <!-- 多对多的时候需要加set标签，一对多的时候一方不用加 --> 
+        <set name="diary" inverse="false">  
+            <key>  
+                <column name="username" />  
+            </key>  
+            <one-to-many class="entity.Diary" />  
+        </set> 
+ 		
+    </class>
+</hibernate-mapping>

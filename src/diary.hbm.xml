@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+
+    <class name="entity.Diary" table="diary">
+    	
+        <id name="id" column="id" type="int">
+        	<generator class="native"></generator>	
+        </id>
+        <property name="title" type="string" length="60">
+        	<column name="title"></column>
+        </property>
+        <property name="content" type="string" length="100">
+        	<column name="content"></column>
+        </property>
+        <property name="writeTime" type="string" length="50">
+        	<column name="writeTime"></column>
+        </property>
+        <property name="username" type="string" length="50" >
+        	<column name="username"></column>
+        </property>
+        
+        <many-to-one name="user" class="entity.User" insert="false" update="false">
+        	<column name="username"></column>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
